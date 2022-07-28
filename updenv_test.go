@@ -9,7 +9,8 @@ import (
 func Test(t *testing.T) {
 
 	c := Config{
-		Path: "/path/to/your/file/.env",
+		Path:   "/path/to/your/file/.env",
+		Quotes: true,
 	}
 
 	err := c.Read()
