@@ -22,7 +22,9 @@ func (c *Config) Update() error {
 
 		if bytes.Contains(read, []byte(index)) {
 
-			value = strconv.Quote(value)
+			if c.Quotes {
+				value = strconv.Quote(value)
+			}
 			environ := strings.Join([]string{index, value}, "=")
 
 			read = bytes.ReplaceAll(read, c.Bytes[index], []byte(environ))
