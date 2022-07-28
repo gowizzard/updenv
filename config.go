@@ -4,6 +4,7 @@ package updenv
 // The updates & the bytes map
 type Config struct {
 	Path    string
+	Quotes  bool
 	Updates map[string]string
 	Bytes   map[string][]byte
 }
