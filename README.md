@@ -18,9 +18,12 @@ Here is an example of how to update a dot env file. Of course, only variables th
 
 If you want to edit multiple files, just create another config struct and fill it with the path to the file. The functions can then be applied to the variable that is linked to the struct.
 
+If you prefer not to use quotes for your variables, then you can set this in the config struct **by setting the quotes value to false**, or omitting it directly.
+
 ```go
 c := Config{
-	Path: "/path/to/your/file/.env",
+	Path:   "/path/to/your/file/.env",
+	Quotes: true,
 }
 
 err := c.Read()
