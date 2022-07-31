@@ -21,7 +21,7 @@ If you want to edit multiple files, just create another config struct and fill i
 If you prefer not to use quotes for your variables, then you can set this in the config struct **by setting the quotes value to false**, or omitting it directly.
 
 ```go
-c := Config{
+c := updenv.Config{
 	Path:   "/path/to/your/file/.env",
 	Quotes: true,
 }
