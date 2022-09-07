@@ -22,13 +22,13 @@ func (c *Config) Read() error {
 		return err
 	}
 
-	c.Entries = make(map[string][]byte)
+	c.Environs = make(map[string][]byte)
 
-	entries := bufio.NewScanner(&c.buffer)
-	for entries.Scan() {
-		before, _, found := strings.Cut(entries.Text(), "=")
+	read := bufio.NewScanner(&c.buffer)
+	for read.Scan() {
+		before, _, found := strings.Cut(read.Text(), "=")
 		if found {
-			c.Entries[before] = entries.Bytes()
+			c.Environs[before] = read.Bytes()
 		}
 	}
 	c.buffer.Reset()
