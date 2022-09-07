@@ -3,6 +3,7 @@ package updenv
 import (
 	"bufio"
 	"io"
+	"os"
 	"strings"
 )
 
@@ -11,7 +12,7 @@ import (
 // After that we closed the file
 func (c *Config) Read() error {
 
-	file, err := c.Filesystem.Open(c.Path)
+	file, err := os.Open(c.Path)
 	if err != nil {
 		return err
 	}
