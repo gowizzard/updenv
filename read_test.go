@@ -46,8 +46,8 @@ func TestRead(t *testing.T) {
 			t.Fatal(err)
 		}
 
-		if !reflect.DeepEqual(value.expected, c.Entries) {
-			t.Fatalf("expected: \"%s\", got: \"%s\"", value.expected, c.Entries)
+		if !reflect.DeepEqual(value.expected, c.Environs) {
+			t.Fatalf("expected: \"%s\", got: \"%s\"", value.expected, c.Environs)
 		}
 
 	}

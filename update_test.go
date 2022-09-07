@@ -43,9 +43,9 @@ func TestUpdate(t *testing.T) {
 	for _, value := range tests {
 
 		c := updenv.Config{
-			Path:    value.path,
-			Bytes:   value.bytes,
-			Entries: value.entries,
+			Path:     value.path,
+			Bytes:    value.bytes,
+			Environs: value.entries,
 		}
 
 		c.Updates = value.updates
