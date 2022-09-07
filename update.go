@@ -1,7 +1,7 @@
 package updenv
 
 import (
-	"bytes"
+	"Bytes"
 	"log"
 	"os"
 	"strconv"
@@ -19,7 +19,7 @@ func (c *Config) Update() error {
 				value = strconv.Quote(value)
 			}
 			environ := strings.Join([]string{index, value}, "=")
-			c.Bytes = bytes.ReplaceAll(c.Bytes, c.Entries[index], []byte(environ))
+			c.Bytes = bytes.ReplaceAll(c.Bytes, c.Environs[index], []byte(environ))
 		}
 	}
 
