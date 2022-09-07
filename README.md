@@ -22,8 +22,9 @@ If you prefer not to use quotes for your variables, then you can set this in the
 
 ```go
 c := updenv.Config{
-	Path:   "/path/to/your/file/.env",
-	Quotes: true,
+	Filesystem: filepath.Join("path", "to", "your", "file")
+	Path:       ".env",
+	Quotes:     true,
 }
 
 err := c.Read()
