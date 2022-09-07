@@ -1,7 +1,9 @@
 package updenv_test
 
 import (
+	"bytes"
 	"github.com/gowizzard/updenv"
+	"io"
 	"os"
 	"path/filepath"
 	"testing"
@@ -11,10 +13,11 @@ import (
 func TestUpdate(t *testing.T) {
 
 	tests := []struct {
-		path    string
-		bytes   []byte
-		entries map[string][]byte
-		updates map[string]string
+		path     string
+		bytes    []byte
+		entries  map[string][]byte
+		updates  map[string]string
+		expected []byte
 	}{
 		{
 			path:  filepath.Join(os.TempDir(), ".env"),
@@ -26,6 +29,7 @@ func TestUpdate(t *testing.T) {
 			updates: map[string]string{
 				"USERNAME": "gowizzard",
 			},
+			expected: []byte("USERNAME=gowizzard"),
 		},
 		{
 			path:  filepath.Join(os.TempDir(), ".env"),
@@ -37,6 +41,7 @@ func TestUpdate(t *testing.T) {
 			updates: map[string]string{
 				"TOKEN": "myNewSecret123456789",
 			},
+			expected: []byte("TOKEN=myNewSecret123456789"),
 		},
 	}
 
@@ -50,6 +55,21 @@ func TestUpdate(t *testing.T) {
 
 		c.Updates = value.updates
 		err := c.Update()
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		file, err := os.Open(value.path)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		read, err := io.ReadAll(file)
+		if !bytes.Contains(read, value.expected) {
+			t.Fatalf("expected: \"%s\", got: \"%s\"", value.expected, read)
+		}
+
+		err = file.Close()
 		if err != nil {
 			t.Fatal(err)
 		}
