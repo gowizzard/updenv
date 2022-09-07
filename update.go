@@ -1,7 +1,7 @@
 package updenv
 
 import (
-	"Bytes"
+	"bytes"
 	"log"
 	"os"
 	"strconv"
