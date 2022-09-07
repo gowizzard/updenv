@@ -16,15 +16,12 @@ go get github.com/gowizzard/updenv
 
 Here is an example of how to update a dot env file. Of course, only variables that exactly match the key can be updated. New variables cannot be added.
 
-If you want to edit multiple files, just create another config struct and fill it with the path to the file. The functions can then be applied to the variable that is linked to the struct. If you want to clear the update struct, you can use the `updenv.ClearUpdates()` function. The function also exists for the read bytes here `updenv.ClearBytes()`. If you want to empty both, you can use the following function `updenv.Clear()`. Execute this function if you want to read a file multiple times with adjustments.
-
 If you prefer not to use quotes for your variables, then you can set this in the config struct **by setting the quotes value to false**, or omitting it directly.
 
 ```go
 c := updenv.Config{
-	Filesystem: filepath.Join("path", "to", "your", "file")
-	Path:       ".env",
-	Quotes:     true,
+	Path:   filepath.Join("path", "to", "your", "file", ".env"),
+	Quotes: true,
 }
 
 err := c.Read()
