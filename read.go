@@ -2,31 +2,36 @@ package updenv
 
 import (
 	"bufio"
-	"os"
+	"io"
 	"strings"
 )
 
 // Read is to read the file from the local filesystem
-// We store the scanned lines with the environ key & the bytes from the file
+// We store the bytes & scanned lines with the environ key
 // After that we closed the file
 func (c *Config) Read() error {
 
-	file, err := os.Open(c.Path)
+	file, err := c.Filesystem.Open(c.Path)
 	if err != nil {
 		return err
 	}
 
-	c.Bytes = make(map[string][]byte)
-
-	read := bufio.NewScanner(file)
-	for read.Scan() {
-
-		before, _, found := strings.Cut(read.Text(), "=")
-		if found {
-			c.Bytes[before] = read.Bytes()
-		}
-
+	c.reader = io.TeeReader(file, &c.buffer)
+	c.Bytes, err = io.ReadAll(c.reader)
+	if err != nil {
+		return err
 	}
+
+	c.Entries = make(map[string][]byte)
+
+	entries := bufio.NewScanner(&c.buffer)
+	for entries.Scan() {
+		before, _, found := strings.Cut(entries.Text(), "=")
+		if found {
+			c.Entries[before] = entries.Bytes()
+		}
+	}
+	c.buffer.Reset()
 
 	err = file.Close()
 	if err != nil {
