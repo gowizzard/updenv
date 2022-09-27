@@ -1,3 +1,10 @@
+// Copyright 2022 Jonas Kwiedor. All rights reserved.
+// Use of this source code is governed by the MIT
+// license that can be found in the LICENSE file.
+
+// Package updenv is used to exchange information or
+// configurations in an environment variables file.
+// Different configurations can be applied.
 package updenv
 
 import (
@@ -5,8 +12,9 @@ import (
 	"io"
 )
 
-// Config is to save essential data, like the file path
-// The updates & the bytes map
+// Config is to save essential configuration data, like
+// the Path, Quotes & Updates. In addition, there are types
+// in which information for the update process is stored.
 type Config struct {
 	Path     string
 	Quotes   bool
